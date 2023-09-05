@@ -1,9 +1,32 @@
+import { notFound } from 'next/navigation'
+
+export const dynamicParams = true;
+
+/** 
+ * Get a list of all the tickets to generate static pages for.
+*/
+export async function generateStaticParams() {
+    const response = await fetch('http://localhost:4000/tickets'
+    );
+    const tickets = await response.json();
+    return tickets.map(ticket => ({
+     id: ticket.id,
+    }));
+  }
+
+/** 
+ * Gets the data for a single ticket.
+*/
 async function getTicket(id) {
     const response = await fetch('http://localhost:4000/tickets/' + id, {
       next: {
           revalidate: 60,
       }
     });
+
+    if (!response.ok) {
+        notFound();
+    }
     return response.json();
   }
 
