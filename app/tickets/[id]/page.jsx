@@ -1,4 +1,8 @@
+import Loading from '../../loading';
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react';
+
+// Components
 
 export const dynamicParams = true;
 
@@ -37,14 +41,16 @@ export default async function TicketDetails({ params}) {
         <nav>
             <h2>Ticket Details</h2>
         </nav>
-        <div className="card">
-            <h3>{ticket.title}</h3>
-            <small>Creaded by: {ticket.user_email}</small>
-            <p>{ticket.body}</p>
-            <div className={`pill ${ticket.priority}`}>
-                {ticket.priority} priority
+        <Suspense fallback={<Loading />}>
+            <div className="card">
+                <h3>{ticket.title}</h3>
+                <small>Creaded by: {ticket.user_email}</small>
+                <p>{ticket.body}</p>
+                <div className={`pill ${ticket.priority}`}>
+                    {ticket.priority} priority
+                </div>
             </div>
-        </div>
+        </Suspense>
     </main>
   )
 }
