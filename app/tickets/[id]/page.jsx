@@ -1,8 +1,8 @@
-import Loading from '../../loading';
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react';
 
 // Components
+import Loading from '../../loading';
 
 export const dynamicParams = true;
 
